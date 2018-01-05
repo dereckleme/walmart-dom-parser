@@ -98,6 +98,7 @@ $console
             $precoAtualValue = $precoAtual->fetchColumn();
 
             if ($precoAtualValue && $valorProduto != $precoAtualValue) {
+                $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
                 $message = (new \Swift_Message($idProduto))
                     ->setFrom('dereckleme@globo.com')
 		            ->setBcc('procaioviana@gmail.com')
@@ -114,10 +115,9 @@ $console
                     ->addBcc('ogabriel@mail.com')
                     ->addBcc('marcelosalvado73@gmail.com')
                     ->setTo('dereckvicentin@gmail.com')
-                    ->setBody("<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R${$precoAtualValue}<br/>Valor Alterado: R$$valorProduto")
+                    ->setBody($msg)
                     ->setContentType('text/html');
                 ;
-
 
                 $swift->send($message);
 
