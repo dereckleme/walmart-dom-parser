@@ -22,7 +22,6 @@ $console
 
         $swift->start();
 
-
         $connectionParams = array(
             'dbname' => 'crwler',
             'user' => 'root',
@@ -97,9 +96,9 @@ $console
             if ($precoAtualValue && $valorProduto != $precoAtualValue) {
                 $message = (new \Swift_Message($idProduto))
                     ->setFrom('dereckleme@globo.com')
-		    ->setBcc('procaioviana@gmail.com')
+		            ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
-		    ->addBcc('genival.eloi@gmail.com')
+                    ->addBcc('genival.eloi@gmail.com')
                     ->addBcc('re2006gomes@gmail.com')
                     ->addBcc('renato_since93@hotmail.com')
                     ->addBcc('rd-lv@hotmail.com')
@@ -111,7 +110,7 @@ $console
                     ->addBcc('ogabriel@mail.com')
                     ->addBcc('marcelosalvado73@gmail.com')
                     ->setTo('dereckvicentin@gmail.com')
-                    ->setBody("Altero o valor: R$$valorProduto")
+                    ->setBody("<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R${$precoAtualValue}<br/>Valor Alterado: R$$valorProduto")
                     ->setContentType('text/html');
                 ;
 
@@ -133,15 +132,15 @@ $console
                     ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
                     ->addBcc('genival.eloi@gmail.com')
-		    ->addBcc('re2006gomes@gmail.com')
-		    ->addBcc('renato_since93@hotmail.com')
-		    ->addBcc('rd-lv@hotmail.com')
-		    ->addBcc('serghi1@msn.com')
-		    ->addBcc('eltooonrs@gmail.com')
-		    ->addBcc('leandronacacio@gmail.com')
-		    ->addBcc('Alexandre@visareengenharia.com.br')
-		    ->addBcc('freitasmoreiralucas@gmail.com')
-		    ->addBcc('ogabriel@mail.com')
+		            ->addBcc('re2006gomes@gmail.com')
+		            ->addBcc('renato_since93@hotmail.com')
+		             ->addBcc('rd-lv@hotmail.com')
+		            ->addBcc('serghi1@msn.com')
+		            ->addBcc('eltooonrs@gmail.com')
+		            ->addBcc('leandronacacio@gmail.com')
+		            ->addBcc('Alexandre@visareengenharia.com.br')
+                    ->addBcc('freitasmoreiralucas@gmail.com')
+		            ->addBcc('ogabriel@mail.com')
                     ->addBcc('marcelosalvado73@gmail.com')
                     ->setTo('dereckvicentin@gmail.com')
                     ->setBody("Baixo: R$$valorProduto")
@@ -152,8 +151,6 @@ $console
                 $swift->send($message);
 	     }
         }
-
-
 
 	//$result = $teste::file_get_html("https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100");
 
