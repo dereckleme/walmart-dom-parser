@@ -112,7 +112,6 @@ $console
                     ->addBcc('leandronacacio@gmail.com')
                     ->addBcc('Alexandre@visareengenharia.com.br')
                     ->addBcc('freitasmoreiralucas@gmail.com')
-                    ->addBcc('ogabriel@mail.com')
                     ->addBcc('marcelosalvado73@gmail.com')
                     ->setTo('dereckvicentin@gmail.com')
                     ->setBody($msg)
