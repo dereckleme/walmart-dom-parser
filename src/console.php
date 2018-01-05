@@ -16,9 +16,13 @@ $console
     ))
     ->setDescription('My command description')
     ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {
-        $swift = new Swift_SmtpTransport("smtp.gmail.com",465, 'ssl');
-        $swift->setUsername("dereckvicentin@gmail.com");
-        $swift->setPassword('741852963drk');
+        //$swift = new Swift_SmtpTransport("smtp.gmail.com",465, 'ssl');
+        //$swift->setUsername("dereckvicentin@gmail.com");
+        //$swift->setPassword('741852963drk');
+
+        $swift = new Swift_SmtpTransport("smtp.globo.com",465, 'ssl');
+        $swift->setUsername("dereckleme@globo.com");
+        $swift->setPassword('741852963');
 
         $swift->start();
 
