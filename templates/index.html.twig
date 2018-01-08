@@ -5,7 +5,7 @@
 
     <ul>
         {% for produto in list %}
-            <li>R${{ produto.preco }} | {{ produto.produto }}</li>
+            <li>{% if (produto.preco) %}R${{ produto.preco }} {% else %}<b>Não Disponível</b>{% endif %} | {{ produto.produto }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

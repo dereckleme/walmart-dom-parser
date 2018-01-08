@@ -97,10 +97,22 @@ $console
             $precoAtual = $conn->query("SELECT preco FROM preco_atual WHERE produto = '{$idProduto}' LIMIT 1");
             $precoAtualValue = $precoAtual->fetchColumn();
 
-            if ($precoAtualValue && $valorProduto != $precoAtualValue) {
+            if ($valorProduto == null && $precoAtualValue != null) {
+                $conn->exec("UPDATE preco_atual SET preco = null WHERE produto = '{$idProduto}'");
+                $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Produto indisponível";
+                $message = (new \Swift_Message($idProduto))
+                    ->setFrom('dereckleme@globo.com')
+                    ->setTo('dereckvicentin@gmail.com')
+                    ->setBody($msg)
+                    ->setContentType('text/html');
+                ;
+
+                $swift->send($message);
+            } elseif ($precoAtualValue && $valorProduto != $precoAtualValue) {
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
                 $message = (new \Swift_Message($idProduto))
                     ->setFrom('dereckleme@globo.com')
+                    /*
 		            ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
                     ->addBcc('genival.eloi@gmail.com')
@@ -113,6 +125,7 @@ $console
                     ->addBcc('Alexandre@visareengenharia.com.br')
                     ->addBcc('freitasmoreiralucas@gmail.com')
                     ->addBcc('marcelosalvado73@gmail.com')
+                    */
                     ->setTo('dereckvicentin@gmail.com')
                     ->setBody($msg)
                     ->setContentType('text/html');
@@ -121,17 +134,18 @@ $console
                 $swift->send($message);
 
                 $conn->exec("UPDATE preco_atual SET preco = '{$valorProduto}' WHERE produto = '{$idProduto}'");
-            } elseif (!$precoAtualValue) {
+            } elseif (!$precoAtualValue && $valorProduto != null) {
                 $conn->exec("INSERT INTO preco_atual (preco, produto) VALUES ('$valorProduto', '{$idProduto}');");
             }
 
-            if (!$fetch) {
+            if (!$fetch && $valorProduto != null) {
                 $conn->exec("INSERT INTO request (value, produto) VALUES ('$valorProduto', '{$idProduto}');");
-            } elseif ($valorProduto < $fetch) {
+            } elseif ($valorProduto < $fetch && $valorProduto != null) {
                 $conn->exec("INSERT INTO request (value, produto) VALUES ('$valorProduto', '{$idProduto}');");
 
                 $message = (new \Swift_Message($idProduto))
                     ->setFrom('dereckvicentin@gmail.com')
+                    /*
                     ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
                     ->addBcc('genival.eloi@gmail.com')
@@ -145,6 +159,7 @@ $console
                     ->addBcc('freitasmoreiralucas@gmail.com')
 		            ->addBcc('ogabriel@mail.com')
                     ->addBcc('marcelosalvado73@gmail.com')
+                    */
                     ->setTo('dereckvicentin@gmail.com')
                     ->setBody("Baixo: R$$valorProduto")
                     ->setContentType('text/html');
@@ -170,9 +185,7 @@ $console
         	foreach ($produtos as $produto) {
             		$valorProduto = getValueKitPneu($result,$produto);
 
-            		if ($valorProduto != null) {
-                	check($swift, $conn, $valorProduto, $produto);
-            		}
+            		check($swift, $conn, $valorProduto, $produto);
               	}
 	     }
     })
