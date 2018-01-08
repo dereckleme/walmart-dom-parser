@@ -9,7 +9,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //Request::setTrustedProxies(array('127.0.0.1'));
 
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig', array());
+    $connectionParams = array(
+        'dbname' => 'crwler',
+        'user' => 'root',
+        'password' => 'burti9',
+        'host' => 'localhost',
+        'driver' => 'pdo_mysql',
+    );
+    $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+    $precoAtual = $conn->query("SELECT * FROM preco_atual order by preco desc");
+    $list = $precoAtual->fetchAll();
+
+    return $app['twig']->render('index.html.twig', array("list" => $list));
 })
 ->bind('homepage')
 ;

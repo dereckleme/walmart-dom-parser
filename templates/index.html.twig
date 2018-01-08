@@ -1,5 +1,11 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-    Welcome to your new Silex Application!
+    <center><h1>Lista de Produtos cadastrados</h1></center> <br/>
+
+    <ul>
+        {% for produto in list %}
+            <li>R${{ produto.preco }} | {{ produto.produto }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
