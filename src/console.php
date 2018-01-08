@@ -108,7 +108,7 @@ $console
                 ;
 
                 $swift->send($message);
-            } elseif ($precoAtualValue && $valorProduto != $precoAtualValue) {
+            } elseif ($valorProduto != $precoAtualValue && $valorProduto != null) {
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
                 $message = (new \Swift_Message($idProduto))
                     ->setFrom('dereckleme@globo.com')
