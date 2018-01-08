@@ -101,17 +101,17 @@ $console
                 $conn->exec("UPDATE preco_atual SET preco = null WHERE produto = '{$idProduto}'");
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Produto indisponível";
                 $message = (new \Swift_Message($idProduto))
-                    ->setFrom('dereckleme@globo.com')
+                    ->setFrom('dereckvicentin@gmail.com')
                     ->setTo('dereckvicentin@gmail.com')
                     ->setBody($msg)
                     ->setContentType('text/html');
                 ;
 
                 $swift->send($message);
-            } elseif ($valorProduto != $precoAtualValue && $valorProduto != null) {
+            } elseif ($valorProduto != $precoAtualValue && $valorProduto != null && $precoAtualValue !== false) {
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
                 $message = (new \Swift_Message($idProduto))
-                    ->setFrom('dereckleme@globo.com')
+                    ->setFrom('dereckvicentin@gmail.com')
                     /*
 		            ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
@@ -179,6 +179,8 @@ $console
         );
 
         foreach ($urls as $url) {
+            $output->writeln("Acessando url: $url \n");
+
 		    $result = $teste::file_get_html($url);
        		$produtos = getProducts($result);
 
