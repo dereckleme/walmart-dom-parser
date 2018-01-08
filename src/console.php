@@ -157,10 +157,15 @@ $console
 
 	//$result = $teste::file_get_html("https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100");
 
-	for($i=1; $i<=12; $i++) { 
-		$result = $teste::file_get_html("https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379--3077--1067&fq=spec_fct_64721:17--16&fq=spec_fct_92901:225&PS=20&mm=100&PageNumber={$i}");
+        $urls = array('https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100',
+            'https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:1067&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100',
+            'https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3077&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100',
+            'https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:16&fq=spec_fct_92901:205&PS=20&mm=100'
+        );
 
-       		 $produtos = getProducts($result);
+        foreach ($urls as $url) {
+		    $result = $teste::file_get_html($url);
+       		$produtos = getProducts($result);
 
         	foreach ($produtos as $produto) {
             		$valorProduto = getValueKitPneu($result,$produto);
