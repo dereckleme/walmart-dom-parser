@@ -91,7 +91,7 @@ $console
             }
         }
 
-        function check($swift, $conn, $valorProduto, $idProduto) {
+        function check(OutputInterface $output, $swift, $conn, $valorProduto, $idProduto) {
             $resultQuery = $conn->query("SELECT value FROM request WHERE produto = '{$idProduto}' order by value asc LIMIT 1");
             $fetch = $resultQuery->fetchColumn();
             $precoAtual = $conn->query("SELECT preco FROM preco_atual WHERE produto = '{$idProduto}' LIMIT 1");
@@ -107,6 +107,7 @@ $console
                     ->setContentType('text/html');
                 ;
 
+                $output->writeln("Enviando email $idProduto");
                 $swift->send($message);
             } elseif ($valorProduto != $precoAtualValue && $valorProduto != null && $precoAtualValue !== false) {
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
@@ -131,6 +132,7 @@ $console
                     ->setContentType('text/html');
                 ;
 
+                $output->writeln("Enviando email $idProduto");
                 $swift->send($message);
 
                 $conn->exec("UPDATE preco_atual SET preco = '{$valorProduto}' WHERE produto = '{$idProduto}'");
@@ -165,7 +167,7 @@ $console
                     ->setContentType('text/html');
                 ;
 
-           
+                $output->writeln("Enviando email $idProduto");
                 $swift->send($message);
 	     }
         }
@@ -187,7 +189,7 @@ $console
         	foreach ($produtos as $produto) {
             		$valorProduto = getValueKitPneu($result,$produto);
 
-            		check($swift, $conn, $valorProduto, $produto);
+            		check($output, $swift, $conn, $valorProduto, $produto);
               	}
 	     }
     })
