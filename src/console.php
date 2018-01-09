@@ -110,7 +110,7 @@ $console
                 $swift->send($message);
             } elseif ($valorProduto != $precoAtualValue && $valorProduto != null && $precoAtualValue !== false) {
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
-                $message = (new \Swift_Message($idProduto))
+                $message = (new \Swift_Message($idProduto)) 
                     ->setFrom('dereckvicentin@gmail.com')
                     /*
 		            ->setBcc('procaioviana@gmail.com')
