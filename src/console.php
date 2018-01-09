@@ -101,7 +101,7 @@ $console
                 $conn->exec("UPDATE preco_atual SET preco = null WHERE produto = '{$idProduto}'");
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Produto indisponível";
                 $message = (new \Swift_Message($idProduto))
-                    ->setFrom('dereckvicentin@gmail.com')
+                    ->setFrom('dereckleme@globo.com')
                     ->setTo('dereckvicentin@gmail.com')
                     ->setBody($msg)
                     ->setContentType('text/html');
@@ -110,8 +110,8 @@ $console
                 $swift->send($message);
             } elseif ($valorProduto != $precoAtualValue && $valorProduto != null && $precoAtualValue !== false) {
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
-                $message = (new \Swift_Message($idProduto)) 
-                    ->setFrom('dereckvicentin@gmail.com')
+                $message = (new \Swift_Message($idProduto))
+                    ->setFrom('dereckleme@globo.com')
                     /*
 		            ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
@@ -144,7 +144,7 @@ $console
                 $conn->exec("INSERT INTO request (value, produto) VALUES ('$valorProduto', '{$idProduto}');");
 
                 $message = (new \Swift_Message($idProduto))
-                    ->setFrom('dereckvicentin@gmail.com')
+                    ->setFrom('dereckleme@globo.com')
                     /*
                     ->setBcc('procaioviana@gmail.com')
                     ->addBcc('dereckleme@globo.com')
