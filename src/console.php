@@ -110,6 +110,7 @@ $console
                 $output->writeln("Enviando email $idProduto");
                 $swift->send($message);
             } elseif ($valorProduto != $precoAtualValue && $valorProduto != null && $precoAtualValue !== false) {
+                $conn->exec("INSERT INTO request (value, produto) VALUES ('$valorProduto', '{$idProduto}');");
                 $msg = "<h1>Alteração Produto: {$idProduto}</h1><br/>Valor Anterior: R$$precoAtualValue<br/>Valor Alterado: R$$valorProduto";
                 $message = (new \Swift_Message($idProduto))
                     ->setFrom('dereckleme@globo.com')
