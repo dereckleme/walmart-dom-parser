@@ -1,11 +1,54 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
     <center><h1>Lista de Produtos cadastrados</h1></center> <br/>
 
     <ul>
-        {% for produto in list %}
-            <li>{% if (produto.preco is not null) %}R${{ produto.preco }} {% else %}<b>Não Disponível</b>{% endif %} | {{ produto.produto }}</li>
+        {% for key,produto in list %}
+            {% set requests = [] %}
+
+            {% for keyrequest,request in produto.produtoRequests %}
+                {% set requests = requests|merge([request.value]) %}
+            {% endfor %}
+
+            <li>
+                <script>
+                    $(function () {
+                        Highcharts.chart('container{{ key }}', {
+
+                            title: {
+                                text: '{{ produto.produtoData.produto }}'
+                            },
+
+                            xAxis: {
+                                tickInterval: 1
+                            },
+
+                            yAxis: {
+                                type: 'logarithmic',
+                                minorTickInterval: 0.1
+                            },
+
+                            tooltip: {
+                                headerFormat: '<b>{series.name}</b><br />',
+                                pointFormat: 'x = {point.x}, y = {point.y}'
+                            },
+
+                            series: [{
+                                data: [{{ requests|join(',') }}],
+                                pointStart: 1
+                            }]
+                        });
+                    });
+
+                </script>
+                {% if (produto.produtoData.preco is not null) %}R${{ produto.produtoData.preco }} {% else %}<b>Não Disponível</b>{% endif %} | {{ produto.produtoData.produto }}
+                <div id="container{{ key }}" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

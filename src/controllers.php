@@ -19,8 +19,16 @@ $app->get('/', function () use ($app) {
     $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
     $precoAtual = $conn->query("SELECT * FROM preco_atual order by preco desc");
     $list = $precoAtual->fetchAll();
+    $forList = array();
 
-    return $app['twig']->render('index.html.twig', array("list" => $list));
+    foreach ($list as $item) {
+        $precoAtual = $conn->query("SELECT * FROM request WHERE produto = '{$item['produto']}' order by data desc");
+        $results = $precoAtual->fetchAll();
+
+        $forList[] = array("produtoData" => $item, "produtoRequests" => $results);
+    }
+
+    return $app['twig']->render('index.html.twig', array("list" => $forList));
 })
 ->bind('homepage')
 ;
