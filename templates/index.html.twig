@@ -16,11 +16,14 @@
     <ul>
         {% for key,produto in list %}
             {% set requests = [] %}
+            {% set requestsHors = [] %}
 
             {% for keyrequest,request in produto.produtoRequests %}
                 {% set requests = requests|merge([request.value]) %}
             {% endfor %}
 
+            {% set total =  produto.produtoRequests|length %}
+            {% set total =  total-1 %}
             <li>
                 <script>
                     $(function () {
@@ -31,7 +34,7 @@
                             },
 
                             xAxis: {
-                                tickInterval: 1
+                                categories: [0, {% for keyrequest,request in produto.produtoRequests %}'{{ request.data }}' {% if keyrequest != total%},{% endif %}{% endfor %}]
                             },
 
                             yAxis: {
