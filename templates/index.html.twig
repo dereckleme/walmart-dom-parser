@@ -6,7 +6,13 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
     <center><h1>Lista de Produtos cadastrados</h1></center> <br/>
-
+    <form action="" method="get">
+        <input type="hidden" name="ocorrencias" value="ok">
+         <input type="submit" value="Com ocorrencias"/>
+    </form>
+    <form action="" method="get">
+        <input type="submit" value="Limpar"/>
+    </form>
     <ul>
         {% for key,produto in list %}
             {% set requests = [] %}
@@ -33,9 +39,13 @@
                                 minorTickInterval: 0.1
                             },
 
-                            tooltip: {
-                                headerFormat: '<b>{series.name}</b><br />',
-                                pointFormat: 'x = {point.x}, y = {point.y}'
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: true
+                                }
                             },
 
                             series: [{

@@ -24,8 +24,15 @@ $app->get('/', function () use ($app) {
     foreach ($list as $item) {
         $precoAtual = $conn->query("SELECT * FROM request WHERE produto = '{$item['produto']}' order by data desc");
         $results = $precoAtual->fetchAll();
+        $ocorrencias = (isset($_GET['ocorrencias'])) ? $_GET['ocorrencias'] : null;
 
-        $forList[] = array("produtoData" => $item, "produtoRequests" => $results);
+        if ($ocorrencias) {
+            if (count($results) > 1) {
+                $forList[] = array("produtoData" => $item, "produtoRequests" => $results);
+            }
+        } else {
+            $forList[] = array("produtoData" => $item, "produtoRequests" => $results);
+        }
     }
 
     return $app['twig']->render('index.html.twig', array("list" => $forList));
