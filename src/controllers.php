@@ -22,7 +22,7 @@ $app->get('/', function () use ($app) {
     $forList = array();
 
     foreach ($list as $item) {
-        $precoAtual = $conn->query("SELECT * FROM request WHERE produto = '{$item['produto']}' order by data desc");
+        $precoAtual = $conn->query("SELECT * FROM request WHERE produto = '{$item['produto']}' order by data asc");
         $results = $precoAtual->fetchAll();
         $ocorrencias = (isset($_GET['ocorrencias'])) ? $_GET['ocorrencias'] : null;
 
