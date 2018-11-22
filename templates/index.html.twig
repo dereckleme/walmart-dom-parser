@@ -19,7 +19,7 @@
             {% set requestsHors = [] %}
 
             {% for keyrequest,request in produto.produtoRequests %}
-                {% set requests = requests|merge([request.value]) %}
+                {% set requests = requests|merge([request.valor_registrado]) %}
             {% endfor %}
 
             {% set total =  produto.produtoRequests|length %}
@@ -30,7 +30,7 @@
                         Highcharts.chart('container{{ key }}', {
 
                             title: {
-                                text: '{{ produto.produtoData.produto }}'
+                                text: '{{ produto.produtoData.nome }}'
                             },
 
                             xAxis: {
@@ -59,7 +59,7 @@
                     });
 
                 </script>
-                {% if (produto.produtoData.preco is not null) %}R${{ produto.produtoData.preco }} {% else %}<b>Não Disponível</b>{% endif %} | {{ produto.produtoData.produto }}
+                {% if (produto.produtoData.valor_atual is not null) %}R${{ produto.produtoData.valor_atual }} {% else %}<b>Não Disponível</b>{% endif %} | {{ produto.produtoData.nome }}
                 <div id="container{{ key }}" style="min-width: 310px; height: 200px; margin: 0 auto"></div>
             </li>
         {% endfor %}

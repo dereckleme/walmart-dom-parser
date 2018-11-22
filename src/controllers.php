@@ -17,12 +17,12 @@ $app->get('/', function () use ($app) {
         'driver' => 'pdo_mysql',
     );
     $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
-    $precoAtual = $conn->query("SELECT * FROM preco_atual order by preco desc");
+    $precoAtual = $conn->query("SELECT * FROM produtos order by valor_atual desc");
     $list = $precoAtual->fetchAll();
     $forList = array();
 
     foreach ($list as $item) {
-        $precoAtual = $conn->query("SELECT * FROM request WHERE produto = '{$item['produto']}' order by data asc");
+        $precoAtual = $conn->query("SELECT * FROM request INNER JOIN produtos ON request.id_produto = produtos.id WHERE id_produto = '{$item['id']}' order by data asc");
         $results = $precoAtual->fetchAll();
         $ocorrencias = (isset($_GET['ocorrencias'])) ? $_GET['ocorrencias'] : null;
 
