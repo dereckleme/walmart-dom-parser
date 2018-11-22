@@ -123,6 +123,7 @@ $console
         $categorias = array(
             'pneus' => 1,
             'blackfriday' => 2,
+            'blackfriday2' => 6,
             'pcgamer' => 3,
             'smartv' => 4,
             'iphone' => 5
@@ -131,6 +132,7 @@ $console
         $urls = array(
             $categorias['pneus'] => 'https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100',
             $categorias['blackfriday'] =>'https://www.walmart.com.br/especial/blackfriday/esquenta/?fq=H:43443&utmi_p=wm-desktop/home-promo&utmi_cp=-wm-home-controle-191118&utmi_pc=x01-Desktop-home-0-0-0-tv_flash-0-01-EsquentaInst-19118',
+            $categorias['blackfriday2'] =>'https://www.walmart.com.br/especial/blackfriday/ofertas?fq=H:43456&utmi_p=wm-desktop/home-promo&utmi_cp=-wm-home-controle-221118&utmi_pc=x01-Desktop-home-0-0-0-tv_flash-0-01-Black-Friday-221118',
             $categorias['pcgamer'] =>'https://www.walmart.com.br/categoria/informatica/pc-gamers/?fq=C:4699/8230/8247/&fq=spec_fct_103079:Core%20i7&PS=20&mm=100',
             $categorias['smartv'] =>'https://www.walmart.com.br/categoria/eletronicos/smart-tv/?fq=C:7240/7242/7249/&PS=20&mm=100',
             $categorias['iphone'] =>'https://www.walmart.com.br/categoria/telefonia/iphone/?fq=C:4833/8267/&PS=20&mm=100',
