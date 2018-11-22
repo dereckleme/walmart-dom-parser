@@ -6,13 +6,13 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
     <center><h1>Lista de Produtos cadastrados</h1></center> <br/>
-    <form action="" method="get">
-        <input type="hidden" name="ocorrencias" value="ok">
-         <input type="submit" value="Com ocorrencias"/>
-    </form>
-    <form action="" method="get">
-        <input type="submit" value="Limpar"/>
-    </form>
+
+    <a href="index_dev.php">>>GERAL<<</a><br/>
+    <a href="index_dev.php?categoria=1">>>PNEUS<<</a><br/>
+    <a href="index_dev.php?categoria=2">>>blackfriday<<</a><br/>
+    <a href="index_dev.php?categoria=3">>>pcgamer<<</a><br/>
+    <a href="index_dev.php?categoria=4">>>smartv<<</a><br/>
+    <a href="index_dev.php?categoria=5">>>iphone<<</a><br/>
     <ul>
         {% for key,produto in list %}
             {% set requests = [] %}

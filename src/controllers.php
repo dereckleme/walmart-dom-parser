@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
-$app->get('/', function () use ($app) {
+$app->get('/', function (Request $request) use ($app) {
     $connectionParams = array(
         'dbname' => 'crwler',
         'user' => 'root',
@@ -16,8 +16,14 @@ $app->get('/', function () use ($app) {
         'host' => 'localhost',
         'driver' => 'pdo_mysql',
     );
+    $categoriaSetted = $request->query->get("categoria");
     $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
-    $precoAtual = $conn->query("SELECT * FROM produtos order by valor_atual desc");
+
+    if ($categoriaSetted) {
+        $precoAtual = $conn->query("SELECT * FROM produtos WHERE categoriaId = {$categoriaSetted} order by valor_atual desc");
+    } else {
+        $precoAtual = $conn->query("SELECT * FROM produtos order by valor_atual desc");
+    }
     $list = $precoAtual->fetchAll();
     $forList = array();
 
