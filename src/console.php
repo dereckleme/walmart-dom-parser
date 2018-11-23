@@ -152,6 +152,7 @@ $console
        		$produtos = getProducts($result);
 
         	foreach ($produtos as $produto) {
+        	    var_dump($produto);
             		$valorProduto = getValueKitPneu($result,$produto);
 
             		if (!empty($valorProduto)) {
