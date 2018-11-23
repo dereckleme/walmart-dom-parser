@@ -130,15 +130,20 @@ $console
         );
 
         $urls = array(
-            $categorias['pneus'] => 'https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100',
-            $categorias['blackfriday'] =>'https://www.walmart.com.br/especial/blackfriday/esquenta/?fq=H:43443&utmi_p=wm-desktop/home-promo&utmi_cp=-wm-home-controle-191118&utmi_pc=x01-Desktop-home-0-0-0-tv_flash-0-01-EsquentaInst-19118',
-            $categorias['blackfriday2'] =>'https://www.walmart.com.br/especial/blackfriday/ofertas?fq=H:43456&utmi_p=wm-desktop/home-promo&utmi_cp=-wm-home-controle-221118&utmi_pc=x01-Desktop-home-0-0-0-tv_flash-0-01-Black-Friday-221118',
-            $categorias['pcgamer'] =>'https://www.walmart.com.br/categoria/informatica/pc-gamers/?fq=C:4699/8230/8247/&fq=spec_fct_103079:Core%20i7&PS=20&mm=100',
-            $categorias['smartv'] =>'https://www.walmart.com.br/categoria/eletronicos/smart-tv/?fq=C:7240/7242/7249/&PS=20&mm=100',
-            $categorias['iphone'] =>'https://www.walmart.com.br/categoria/telefonia/iphone/?fq=C:4833/8267/&PS=20&mm=100',
+            array('url' => 'https://www.walmart.com.br/categoria/automotivo/carros/?fq=C:2903/1873/1901/&fq=B:3379&fq=spec_fct_64721:17&fq=spec_fct_92901:225&PS=20&mm=100', 'categoria' => $categorias['pneus']) ,
+            array('url' => 'https://www.walmart.com.br/kp/pneus-aro-17?fq=C%3A2903%2F&ft=pneus%20aro%2017&PS=20&PageNumber=1', 'categoria' => $categorias['pneus']) ,
+            array('url' => 'https://www.walmart.com.br/kp/pneus-aro-17?fq=C%3A2903%2F&ft=pneus%20aro%2017&PS=20&PageNumber=2', 'categoria' => $categorias['pneus']) ,
+            array('url' => 'https://www.walmart.com.br/kp/pneus-aro-17?fq=C%3A2903%2F&ft=pneus%20aro%2017&PS=20&PageNumber=3', 'categoria' => $categorias['pneus']) ,
+            array('url' => 'https://www.walmart.com.br/kp/pneus-aro-17?fq=C%3A2903%2F&ft=pneus%20aro%2017&PS=20&PageNumber=4', 'categoria' => $categorias['pneus']) ,
+            array('url' => 'https://www.walmart.com.br/especial/blackfriday/esquenta/?fq=H:43443&utmi_p=wm-desktop/home-promo&utmi_cp=-wm-home-controle-191118&utmi_pc=x01-Desktop-home-0-0-0-tv_flash-0-01-EsquentaInst-19118', 'categoria' => $categorias['blackfriday']),
+            array('url' => 'https://www.walmart.com.br/especial/blackfriday/ofertas?fq=H:43456&utmi_p=wm-desktop/home-promo&utmi_cp=-wm-home-controle-221118&utmi_pc=x01-Desktop-home-0-0-0-tv_flash-0-01-Black-Friday-221118', 'categoria' => $categorias['blackfriday2']),
+            array('url' => 'https://www.walmart.com.br/categoria/informatica/pc-gamers/?fq=C:4699/8230/8247/&fq=spec_fct_103079:Core%20i7&PS=20&mm=100', 'categoria' => $categorias['pcgamer']),
+            array('url' => 'https://www.walmart.com.br/categoria/eletronicos/smart-tv/?fq=C:7240/7242/7249/&PS=20&mm=100', 'categoria' => $categorias['smartv']),
+            array('url' => 'https://www.walmart.com.br/categoria/telefonia/iphone/?fq=C:4833/8267/&PS=20&mm=100', 'categoria' => $categorias['iphone']),
         );
 
-        foreach ($urls as $categoriaId => $url) {
+        foreach ($urls as $dados) {
+            $url = $dados['url'];
             $output->writeln("Acessando url: $url \n");
             $x = file_get_contents($url);
             $result = $teste::str_get_html($x);
@@ -150,7 +155,7 @@ $console
             		$valorProduto = getValueKitPneu($result,$produto);
 
             		if (!empty($valorProduto)) {
-                        check($output, $conn, $valorProduto, $produto, $categoriaId);
+                        check($output, $conn, $valorProduto, $produto, $dados['categoria']);
                     }
               	}
 	     }
